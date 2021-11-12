@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db.models.base import Model
 from django.db.models.enums import Choices
 from django.db.models.fields import BooleanField
+from django.db.models.fields import related
 from django.db.models.fields.related import create_many_to_many_intermediary_model
 from django.forms import widgets
 
@@ -71,3 +72,18 @@ class Flight(models.Model):
 # class schadule(models.Model):
 #     user = models.ForeignKey(User, on_delete=models.CASCADE)
 #     FlightNo = models.CharField(max_length=10,)
+
+class Comment(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='ucomment')
+    Flight = models.ForeignKey(Flight, on_delete=models.CASCADE,related_name='pcomment')
+    reply = models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True,related_name='rcomment')
+    is_reply = models.BooleanField(default=False)
+    body = models.TextField(max_length=700)
+    created = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self) -> str:
+        return f'{self.user} - {self.body[:30]}'
+
+    class Meta:
+        ordering = ('-created',)

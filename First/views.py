@@ -1,13 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.forms.widgets import DateInput
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic.list import ListView
 from django.utils.text import slugify 
-from First.models import Flight
+from First.models import Flight,Comment
 from django.views.generic import DetailView
 from django.contrib import messages
 from Flightio.settings import TIME_ZONE
 from .models import Flight
-from .forms import AddSchaduleForm
+from .forms import AddCommentFlight, AddSchaduleForm,AddReplyForm
 
 
 
@@ -20,8 +21,19 @@ class schaduleHome(ListView):
 
 def DetailFlight(request,flight_id):
     flight = get_object_or_404(Flight,pk=flight_id)
-    
-    return render(request,'First/detail_schadule.html',{'flight':flight})
+    reply_form = AddReplyForm()
+    comment = Comment.objects.filter(Flight=flight, is_reply=False)
+    if request.method == 'POST':
+        form = AddCommentFlight(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.Flight = flight 
+            new_comment.user = request.user
+            new_comment.save()
+            messages.success(request,'پیگیری شما ثبت شد')
+    else:
+        form = AddCommentFlight()
+    return render(request,'First/detail_schadule.html',{'flight':flight,'comments':comment,'form':form,'reply':reply_form})
 
 
 def add_Schadule(request):    
@@ -40,3 +52,20 @@ def add_Schadule(request):
     else:
         form = AddSchaduleForm()
     return render(request,'First/add_Schadule.html', {'form':form} )
+
+
+@login_required
+def add_reply(request,flight_id,comment_id):
+    flight= get_object_or_404(Flight,id=flight_id)
+    comment = get_object_or_404(Comment,id=comment_id)
+    if request.method == 'POST':
+        form = AddReplyForm(request.POST)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.user = request.user
+            reply.Flight = flight
+            reply.reply = comment
+            reply.is_reply = True
+            reply.save()
+            messages.success(request, 'your reply submitted successfully', 'success')
+    return redirect('first:flight_detail', flight_id)

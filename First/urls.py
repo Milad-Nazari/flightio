@@ -6,6 +6,8 @@ app_name = 'first'
 urlpatterns = [
     path('',views.schaduleHome.as_view(),name='index'),
     path('flight_detail/<int:flight_id>/',views.DetailFlight,name='flight_detail'),
-    path('add_Schadule/',views.add_Schadule,name='add_Schadule')
+    path('add_Schadule/',views.add_Schadule,name='add_Schadule'),
     # path('Flight_Detail/<str:origin>/<str:distination>/<int:nomber>/<date')
+    path('add_reply/<int:flight_id>/<int:comment_id>/',views.add_reply, name='add_reply'),
+
 ]

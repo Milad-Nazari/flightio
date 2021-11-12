@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Center Align Buttons in Bootstrap</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<style>
+    /* Style to center grid column */
+    .col-centered{
+        float: auto;
+        margin: 2 auto;
+    }
+    
+    /* Some custom styles to beautify this example */
+    .row{
+        background: #dbdfe5;
+    }
+    .demo-content{
+        padding: 25px;
+        font-size: 18px;
+        background: #abb1b8;
+    }
+</style>
+</head>
+<body>
+    {% for message in messages %}
+        <p class="alert alert-{{ message.tags }}"> {{ message }} </p>
+    {% endfor %}
+    <nav dir="rtl" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div  class="container-fluid mx-5">
+          <li>
+          <a class="btn btn-success pd-2 " aria-current="page" href="{% url 'first:index' %}">صفحه اصلی</a>
+          {% if request.user.is_authenticated %}
+          <a class="btn btn-success" href="{% url 'first:add_Schadule' %}">ثبت تغییرات</a>
+          <li><a class="btn btn-danger mx-2 " aria-current="page" href="{% url 'account:logout' %}">خروج</a></li>
+          
+        
+          {% else %}
+          <a class="btn btn-outline-success mx-2" aria-current="page" href="{% url 'account:login' %}">ورود</a>
+          {% endif %}
+        </li>
+        </div>
+      </nav>
+      <br>
+      <br>
+      <br>
+      <div class="container my-3 ">
+        <div class="col-md-12 text-center">
+            <form action="" method="post" novalidate class="btn btn-info ">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {{ form.username.errors }}
+        <label for="{{ form.username.id_for_label }}">Username</label>
+        {{ form.username }}<br/>
+
+    
+        {{ form.password.errors }}
+        <label for="{{ form.password.id_for_label }}">Password</label>
+        {{ form.password }}<br/>
+
+        <input type="submit" value="Login" calss="btn btn-primary">    
+    </form>
+</div>
+</div>

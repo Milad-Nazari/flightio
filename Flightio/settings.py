@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'First.apps.FirstConfig',
     'Lib.site-packages.bootstrap_datepicker_plus',
+    'account.apps.AccountConfig',
     
     ]
 BOOTSTRAP3 = {
