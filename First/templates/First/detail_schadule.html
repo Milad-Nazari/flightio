@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <header class="header-dark" style="color: var(--bs-black-100);">
+    <header class="header-dark" style="color: var(--bs-gray-100);">
         <nav class="navbar navbar-dark navbar-expand-lg navigation-clean-search">
             <div class="container">
                 <nav class="navbar navbar-light navbar-expand-md">
@@ -97,7 +97,50 @@
                 <div class="col-md-12">
                     <div>
                         <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-1">Tab 1</a></li>
+                            {% for supplier in suppliers %}
+                            <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-1">{{supplier.title }}</a></li>
+                            <div class="col-xs-6 col-sm-6 bg-outline-dark"><h3><small>پیگیری ها</small></h3>
+                                <p>{{ comments.count }} اعلان ثبت شده است .</p>
+                                {% if request.user.is_authenticated %}
+                                <div  class="container-fluid mx-5 px-2 ">
+                                  <form method="post" action="" novalidate class="col-md-6 ">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <input type="submit" value="send" class="btn btn-primary">
+                                  </form>
+                                {% else %}
+                                  <p>برای ثبت اعلان باید حتما به حساب کاربری خود وارد شوید </p>
+                                {% endif %} <br>
+                                {% for comment in comments %}
+                                  <div class="card bg-light">
+                                    <label class="col-sm-2 control-label mx-2 px-2" for="formGroupInputLarge">{{ comment.user }}{{ comment.created }}</label>  
+                                    <p class="card-body">{{ comment.body }}</p>
+                                    <br>
+                                    {% if request.user.is_authenticated %}
+                                    <div class="card-body">
+                                            {% for reply in comment.rcomment.all %}
+                                            <p class="card bg-primary text-white p-3 m-5 ">{{ reply.user }}{{ reply.created }} <br/> {{ reply.body }}</p>
+                                          {% endfor %}  
+                                          <br>
+                                      <form action="{% url 'first:add_reply' flight.id comment.id %}" method="post">
+                                            {% csrf_token %}
+                                            {{ form.as_p }}
+                                            <input type="submit" value="Send">
+                                        </form>
+                                    </div>
+                                    {% else %}
+                                    <p> yu must logged in to write a comment</p>
+                            
+                                    {% endif %}
+                                  </div>
+                                
+                            {% empty %}
+                            <p>هنوز پیگیری صورت نگرفته است .</p>    
+                              {% endfor %}
+                            </div>
+                              
+                            {% endfor %}
+                            
                             <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">Tab 2</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-3">Tab 3</a></li>
                         </ul>

@@ -1,47 +1,150 @@
-{% extends 'base.html' %}
+{% load static %}
 
-{% block title %} Home {% endblock %}
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="{{'/static/detailschadule/bootstrap/css/bootstrap.min.css'}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="{{'/static/detailschadule/fonts/font-awesome.min.css'}}">
+    <link rel="stylesheet" href="{{'/static/detailschadule/css/Header-Dark.css'}}">
+    <link rel="stylesheet" href="{{'/static/detailschadule/css/styles.css'}}">
+    <link rel="stylesheet" href="{{'/static/detailschadule/css/Team-Grid.css'}}">
+</head>
 
-{% block content %}
+<body>
+    <header class="header-dark" style="color: var(--bs-gray-100);">
+        <nav class="navbar navbar-dark navbar-expand-lg navigation-clean-search">
+            <div class="container">
+                <nav class="navbar navbar-light navbar-expand-md">
+                    <div class="container-fluid"><a class="navbar-brand" href="{% url 'first:index' %}">صفحه اصلی</a><button data-bs-toggle="collapse" data-bs-target="#navcol-1" class="navbar-toggler"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                        <div class="collapse navbar-collapse" id="navcol-2">
+                            <ul class="navbar-nav">
+                                <li class="nav-item"><a class="nav-link active" href="{% url 'first:add_Schadule' %}">ثبت تغییرات</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#">اعلان جدید</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#">ویرایش</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="navbar-nav"></ul>
+                    <form class="me-auto" target="_self"></form><span class="navbar-text"></span><a class="btn btn-light action-button" role="button" href="#">Log in</a>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive" style="background: linear-gradient(black, rgb(153,153,153) 60%, rgb(153,153,153) 60%, rgb(153,153,153) 60%, rgb(155,155,155) 61%, rgb(174,174,174) 68%, rgb(215,215,215) 84%, rgb(222,222,222) 93%, white);color: #666666;">
+                        <table class="table">
+                            <thead style="color: var(--bs-gray-600);background: var(--bs-dark);">
+                                <tr>
+                                   
+                                  <table class="table table-striped col-md-12 ">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">مبدا</th>
+                                        <th scope="col">مقصد</th>
+                                        <th scope="col">ایرلاین</th>
+                                        <th scope="col">شماره پرواز</th>
+                                        <th scope="col">تاریخ پرواز</th>
+                                        <th scope="col">ساعت پرواز</th>
+                                        <th scope="col">ساعت ثبت تغییرات</th>
+                                        <th scope="col">وضعیت</th>
+                                        <th scope="col">سازنده</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                  {% csrf_token %}
+                                
+                                          {% for flight in Flight %}
+                                            <tr>
+                                            <a href=""><th scope="row" >{{ flight.id}}</th>
+                                            <td><a href="{% url 'first:flight_detail' flight.id %}">{{ flight.Flight_Origin }}</a></td>                                              <td>{{ flight.Flight_Origin }}</td>
+                                            <td>{{ flight.Flight_Distination }}</td>
+                                            <td>{{ flight.Flight_Airline }}</td>
+                                            <td>{{ flight.Flight_Nomber }}</td>
+                                            <td>{{ flight.Flight_Date|date:"SHORT_DATE_FORMAT" }}</td>
+                                            <td>{{ flight.Flight_Time|time:"H:i" }}</td>
+                                            <td>{{ flight.created }}</td>
+                                            <td>{{ status.schadulestatus }}</td>
+                                            <td>user</td>
+                                             </tr>
+                                             {% endfor %}
+                                        
+                                      </tbody>
+                                    </table>
+                                  </form>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </header>
+    <section class="team-grid">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">Team </h2>
+                <p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet.&nbsp; </p>
+            </div>
+            <div class="row people">
+                <div class="col-md-4 col-lg-3 item">
+                    <div class="box" style="background-image:url('/static/detailschadule/img/1.jpg')">
+                        <div class="cover">
+                            <h3 class="name">Ben Johnson</h3>
+                            <p class="title">Musician</p>
+                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3 item">
+                    <div class="box" style="background-image:url('/static/detailschadule/img/2.jpg')">
+                        <div class="cover">
+                            <h3 class="name">Emily Clark</h3>
+                            <p class="title">Artist </p>
+                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3 item">
+                    <div class="box" style="background-image:url('/static/detailschadule/img/3.jpg')">
+                        <div class="cover">
+                            <h3 class="name">Carl Kent</h3>
+                            <p class="title">Stylist </p>
+                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3 item">
+                    <div class="box" style="background-image:url('/static/detailschadule/img/4.jpg')">
+                        <div class="cover">
+                            <h3 class="name">Felicia Adams</h3>
+                            <p class="title">Model </p>
+                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="{{ '/static/detailschadule/bootstrap/js/bootstrap.min.js' }}"></script>
+    <script src="{{'/static/detailschadule/js/bs-init.js' }}"></script>
+<style>
+    .header-dark {
+  background: url('/static/detailschadule/img/mountain_bg.jpg') #444;
+  background-size: cover;
+  padding-bottom: 80px;
+}
 
+</style>
+</body>
 
-<table class="table table-striped col-md-12 ">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">مبدا</th>
-        <th scope="col">مقصد</th>
-        <th scope="col">ایرلاین</th>
-        <th scope="col">شماره پرواز</th>
-        <th scope="col">تاریخ پرواز</th>
-        <th scope="col">ساعت پرواز</th>
-        <th scope="col">ساعت ثبت تغییرات</th>
-        <th scope="col">سازنده</th>
-      </tr>
-    </thead>
-    
-    <tbody>
-        <tr>
-<form action="" method="POST">
-  {% csrf_token %}
-
-          {% for flight in Flight %}
-          <a href=""><th scope="row" >{{ flight.id}}</th>
-          <td><a href="{% url 'first:flight_detail' flight.id %}">{{ flight.Flight_Origin }}</a></td>
-          <td>{{ flight.Flight_Distination }}</td>
-          <td>{{ flight.Flight_Airline }}</td>
-          <td>{{ flight.Flight_Nomber }}</td>
-          <td>{{ flight.Flight_Date|date:"SHORT_DATE_FORMAT" }}</td>
-          <td>{{ flight.Flight_Time|time:"H:i" }}</td>
-          <td>{{ flight.created }}</td>
-          <td>user</td>
-        </a>
-        </tr>
-        {% endfor %}
-        
-      </tbody>
-    </table>
-  </form>
-
-{% endblock %}
+</html>
