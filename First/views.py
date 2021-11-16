@@ -9,7 +9,7 @@ from django.contrib import messages
 from Flightio.settings import TIME_ZONE
 from .models import Flight
 from .forms import AddCommentFlight, AddSchaduleForm,AddReplyForm
-
+from jalali_date import datetime2jalali, date2jalali
 
 
 class schaduleHome(ListView):
