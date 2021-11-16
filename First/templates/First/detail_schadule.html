@@ -1,127 +1,179 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en"  dir="rtl">
+<html lang="en" dir="rtl">
+
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Detail</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="{{'/static/detailschadule/bootstrap/css/bootstrap.min.css'}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="{{'/static/detailschadule/fonts/font-awesome.min.css'}}">
+    <link rel="stylesheet" href="{{'/static/detailschadule/css/Header-Dark.css'}}">
+    <link rel="stylesheet" href="{{'/static/detailschadule/css/styles.css'}}">
+    <link rel="stylesheet" href="{{'/static/detailschadule/css/Team-Grid.css'}}">
 </head>
+
 <body>
-    {% for message in messages %}
-        <p class="alert alert-{{ message.tags }}"> {{ message }} </p>
-    {% endfor %}
-    <nav dir="rtl" class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div  class="container-fluid mx-5">
-          <li>
-          <a class="btn btn-success pd-2 " aria-current="page" href="{% url 'first:index' %}">صفحه اصلی</a>
-          {% if request.user.is_authenticated %}
-          <a class="btn btn-success" href="{% url 'first:add_Schadule' %}">ثبت تغییرات</a>
-          <a class="btn btn-success" href="">اعلان جدید</a>
-          <a class="btn btn-success" href="">ویرایش</a>
-          
-          <li><a class="btn btn-danger mx-2 " aria-current="page" href="{% url 'account:logout' %}">خروج</a></li>
-          
-        
-          {% else %}
-          <a class="btn btn-outline-success mx-2" aria-current="page" href="{% url 'account:login' %}">ورود</a>
-          {% endif %}
-        </li>
+    <header class="header-dark" style="color: var(--bs-black-100);">
+        <nav class="navbar navbar-dark navbar-expand-lg navigation-clean-search">
+            <div class="container">
+                <nav class="navbar navbar-light navbar-expand-md">
+                    <div class="container-fluid"><a class="navbar-brand" href="{% url 'first:index' %}">صفحه اصلی</a><button data-bs-toggle="collapse" data-bs-target="#navcol-1" class="navbar-toggler"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                        <div class="collapse navbar-collapse" id="navcol-2">
+                            <ul class="navbar-nav">
+                                <li class="nav-item"><a class="nav-link active" href="{% url 'first:add_Schadule' %}">ثبت تغییرات</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#">اعلان جدید</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#">ویرایش</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="navbar-nav"></ul>
+                    <form class="me-auto" target="_self"></form><span class="navbar-text"></span><a class="btn btn-light action-button" role="button" href="#">Log in</a>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive" style="background: linear-gradient(black, rgb(153,153,153) 60%, rgb(153,153,153) 60%, rgb(153,153,153) 60%, rgb(155,155,155) 61%, rgb(174,174,174) 68%, rgb(215,215,215) 84%, rgb(222,222,222) 93%, white);color: #666666;">
+                        <table class="table">
+                            <thead style="color: var(--bs-gray-600);background: var(--bs-dark);">
+                                <tr>
+                                   
+									<th scope="col">#</th>
+									<th scope="col">مبدا</th>
+									<th scope="col">مقصد</th>
+									<th scope="col">ایرلاین</th>
+									<th scope="col">شماره پرواز</th>
+									<th scope="col">تاریخ پرواز</th>
+									<th scope="col">ساعت پرواز</th>
+									<th scope="col">ساعت ثبت تغییرات</th>
+									<th scope="col">وضعیت</th>
+									<th scope="col">سازنده</th>
+								</tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  							  
+									<th scope="row" >{{ flight.id}}</th>
+									<td>{{ flight.Flight_Origin }}</td>
+									<td>{{ flight.Flight_Distination }}</td>
+									<td>{{ flight.Flight_Airline }}</td>
+									<td>{{ flight.Flight_Nomber }}</td>
+									<td>{{ flight.Flight_Date|date:"SHORT_DATE_FORMAT" }}</td>
+									<td>{{ flight.Flight_Time|time:"H:i" }}</td>
+									<td>{{ flight.created }}</td>
+									<td>{{ status.schadulestatus }}</td>
+									<td>user</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-      </nav>
-      <br>
-      <br>
-      <br>
-<br>
-<div  class="container-fluid col-md-12">
-<div class="col-xs-6 col-sm-6">
-</div>
-
- 
-</div>
-<br/>
-<br/>
-<br/>
-<br/>
-
-<table class="table table-striped  ">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">مبدا</th>
-        <th scope="col">مقصد</th>
-        <th scope="col">ایرلاین</th>
-        <th scope="col">شماره پرواز</th>
-        <th scope="col">تاریخ پرواز</th>
-        <th scope="col">ساعت پرواز</th>
-        <th scope="col">ساعت ثبت تغییرات</th>
-        <th scope="col">سازنده</th>
-      </tr>
-    </thead>
-    
-    <tbody>
-        <tr>
-          <th scope="row" >{{ flight.id}}</th>
-          <td>{{ flight.Flight_Origin }}</td>
-          <td>{{ flight.Flight_Distination }}</td>
-          <td>{{ flight.Flight_Airline }}</td>
-          <td>{{ flight.Flight_Nomber }}</td>
-          <td>{{ flight.Flight_Date|date:"SHORT_DATE_FORMAT" }}</td>
-          <td>{{ flight.Flight_Time|time:"H:i" }}</td>
-          <td>{{ flight.created }}</td>
-          <td>user</td>
-        </tr>
-        
-      </tbody>
-    </table>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <div  class="container-fluid mx-5 px-2  ">
-    <div class="col-xs-6 col-sm-6 bg-outline-dark"><h3><small>پیگیری ها</small></h3>
-      <p>{{ comments.count }} اعلان ثبت شده است .</p>
-      {% if request.user.is_authenticated %}
-      <div  class="container-fluid mx-5 px-2 ">
-        <form method="post" action="" novalidate class="col-md-6 ">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <input type="submit" value="send" class="btn btn-primary">
-        </form>
-      {% else %}
-        <p>برای ثبت اعلان باید حتما به حساب کاربری خود وارد شوید </p>
-      {% endif %} <br>
-      {% for comment in comments %}
-        <div class="card bg-light">
-          <label class="col-sm-2 control-label mx-2 px-2" for="formGroupInputLarge">{{ comment.user }}{{ comment.created }}</label>  
-          <p class="card-body">{{ comment.body }}</p>
-          <br>
-          {% if request.user.is_authenticated %}
-          <div class="card-body">
-                  {% for reply in comment.rcomment.all %}
-                  <p class="card bg-primary text-white p-3 m-5 ">{{ reply.user }}{{ reply.created }} <br/> {{ reply.body }}</p>
-                {% endfor %}  
-                <br>
-            <form action="{% url 'first:add_reply' flight.id comment.id %}" method="post">
-                  {% csrf_token %}
-                  {{ form.as_p }}
-                  <input type="submit" value="Send">
-              </form>
-          </div>
-          {% else %}
-          <p> yu must logged in to write a comment</p>
-  
-          {% endif %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6"></div>
+            </div>
         </div>
-      
-  {% empty %}
-  <p>هنوز پیگیری صورت نگرفته است .</p>    
-    {% endfor %}
-  </div>
-    
-  </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <p><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br><br></p>
+                </div>
+                <div class="col-md-4">
+                    <p><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br><br></p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-1">Tab 1</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">Tab 2</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-3">Tab 3</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" role="tabpanel" id="tab-1">
+                                <p>Content for tab 1.</p>
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="tab-2">
+                                <p>Content for tab 2.</p>
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="tab-3">
+                                <p>Content for tab 3.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-bss-parallax-bg="true" style="height: 500px;background-image: url('/static/detailschadule/img/mountain_bg.jpg');background-position: center;background-size: cover;"></div>
+    </header>
+    <section class="team-grid">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">Team </h2>
+                <p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet.&nbsp; </p>
+            </div>
+            <div class="row people">
+                <div class="col-md-4 col-lg-3 item">
+                    <div class="box" style="background-image:url('/static/detailschadule/img/1.jpg')">
+                        <div class="cover">
+                            <h3 class="name">Ben Johnson</h3>
+                            <p class="title">Musician</p>
+                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3 item">
+                    <div class="box" style="background-image:url('/static/detailschadule/img/2.jpg')">
+                        <div class="cover">
+                            <h3 class="name">Emily Clark</h3>
+                            <p class="title">Artist </p>
+                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3 item">
+                    <div class="box" style="background-image:url('/static/detailschadule/img/3.jpg')">
+                        <div class="cover">
+                            <h3 class="name">Carl Kent</h3>
+                            <p class="title">Stylist </p>
+                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3 item">
+                    <div class="box" style="background-image:url('/static/detailschadule/img/4.jpg')">
+                        <div class="cover">
+                            <h3 class="name">Felicia Adams</h3>
+                            <p class="title">Model </p>
+                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="{{ '/static/detailschadule/bootstrap/js/bootstrap.min.js' }}"></script>
+    <script src="{{'/static/detailschadule/js/bs-init.js' }}"></script>
+<style>
+    .header-dark {
+  background: url('/static/detailschadule/img/mountain_bg.jpg') #444;
+  background-size: cover;
+  padding-bottom: 80px;
+}
+
+</style>
 </body>
+
 </html>

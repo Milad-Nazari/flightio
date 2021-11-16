@@ -1,68 +1,345 @@
+{% load static %}
+{% load jalali_tags %}
+
+{% if request.user.is_authenticated %}
 <!DOCTYPE html>
 <html lang="en" dir="rtl">
+
 <head>
-    <title>{% block title %} {% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ثبت تغییرات</title>
+    <link rel="stylesheet" href="{{'/static/detailschadule/bootstrap/css/bootstrap.min.css'}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="{{'/static/detailschadule/fonts/font-awesome.min.css'}}">
+    <link rel="stylesheet" href="{{'/static/detailschadule/css/Header-Dark.css'}}">
+    <link rel="stylesheet" href="{{'/static/detailschadule/css/styles.css'}}">
+    <link rel="stylesheet" href="{{'/static/detailschadule/css/Team-Grid.css'}}">
     
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-
 </head>
-<body>
-    
-     <div class="jumbotron">     
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<header class="header-dark" style="color: var(--bs-black-100);">
+<nav class="navbar navbar-dark navbar-expand-lg navigation-clean-search">
+   <div class="container">
+       <nav class="navbar navbar-light navbar-expand-md">
         
-        <p class="form-body">
-            {% include 'inc/messages.html' %}
-            {{ form.non_field_errors }}
+           <div class="container-fluid"><a class="navbar-brand "  href="{% url 'first:index' %}">صفحه اصلی</a><button data-bs-toggle="collapse" data-bs-target="#navcol-1" class="navbar-toggler"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+               <div class="collapse navbar-collapse" id="navcol-2">
+                   <ul class="navbar-nav">
+                       <li class="nav-item"><a class="nav-link active" href="{% url 'first:add_Schadule' %}">ثبت تغییرات</a></li>
+                       <li class="nav-item"><a class="nav-link" href="#">اعلان جدید</a></li>
+                       <li class="nav-item"><a class="nav-link" href="#">ویرایش</a></li>
+                   </ul>
+               </div>
+           </div>
+       </nav>
+       <div class="collapse navbar-collapse" id="navcol-1">
+           <ul class="navbar-nav"></ul>
+           <form class="me-auto" target="_self"></form><span class="navbar-text"></span><a class="btn btn-light action-button" role="button" href="#">Log in</a>
+       </div>
+   </div>
+</nav>
+<section class="get-in-touch">
+   <h1 class="title">ثبت تغییرات</h1>
+   <form class="contact-form row">
+      <div class="form-field col-lg-6" style="max-width:320px;width:90%; color:white">
+      <label for="{{ form.Flight_Origin.id_for_label }}">مبدا</label>
+      <div id="name" class="input-text js-input" type="text" required>{{ form.Flight_Origin }} </div>
+      </div>
 
-                <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">مبدا</th>
-                    <th scope="col">مقصد</th>
-                    <th scope="col">ایرلاین</th>
-                    <th scope="col">شماره پرواز</th>
-                    <th scope="col">تاریخ پرواز</th>
-                    <th scope="col">ساعت پرواز</th>
-                    <th scope="col">تاریخ جدید</th>
-                    <th scope="col">ساعت جدید</th>
-                  </tr>
-                </thead>
-                
-                <tbody >
-                    <tr >
-                      <form action="" method="post">
-                        {% csrf_token %}
-                      <th scope="row"  >{{ flight.id}}</th>
-                        
-                      <td >{{ form.Flight_Origin }}</td>
-                      <td>{{ form.Flight_Distination }}</td>
-                      <td>{{ form.Flight_Airline }}</td>
-                      <td>{{ form.Flight_Nomber }}</td>
-                      <td>{{ form.Flight_Date }}</td>
-                      <td>{{ form.Flight_Time }}</td>
-                      <td>{{ form.schadule_Date }}</td>
-                      <td>{{ form.schadule_Time }}</td>
-                    </tr>
-                 
-                  </tbody>
-            
-                </table>
-                <input type="submit" value="submit" class="btn btn-primary">
-               
-            </form>
-            
+      <div class="form-field col-lg-6" style="max-width:320px;width:90% ; color:white">
+         <label for="{{ form.Flight_Distination.id_for_label }}">مقصد</label>
+         <div id="name" class="input-text js-input" type="text" required>{{ form.Flight_Distination }} </div>
+      </div>
+     
+      <div class="form-field col-lg-6" style="max-width:320px; color:white">
+         <label for="{{ form.Flight_Airline.id_for_label }}">ایرلاین</label>
+         <div id="name" class="input-text js-input" type="text" required>{{ form.Flight_Airline }} </div>
+      </div>   
+      <div class="form-field col-lg-6" style="max-width:320px; color:white">
+         <label for="{{ form.Flight_Nomber.id_for_label }}">شماره پرواز</label>
+         <div id="name" class="input-text js-input" type="text" required>{{ form.Flight_Nomber }} </div>
+      </div>   
+      <div class="form-field col-lg-6" style="max-width:320px; color:white">
+         <label for="{{ form.Flight_Date.id_for_label }}">تاریخ پرواز</label>
+         <div id="name" class="input-text js-input" type="text" required>{{ form.Flight_Date }} </div>
+      </div>   
+      <div class="form-field col-lg-6" style="max-width:320px; color:white">
+         <label for="{{ form.Flight_Time.id_for_label }}">ساعت</label>
+         <div id="name" class="input-text js-input" type="text" required>{{ form.Flight_Time }} </div>
+      </div>   
+      <div class="form-field col-lg-6" style="max-width:320px; color:white">
+         <label for="{{ form.Flight_Date.id_for_label }}">تاریخ جدید</label>
+         <div id="name" class="input-text js-input" type="text" required>{{ form.schadule_Date }} </div>
+      </div>   
+      <div class="form-field col-lg-6" style="max-width:320px; color:white">
+         <label for="{{ form.Flight_Date.id_for_label }}">ساعت جدید</label>
+         <div id="name" class="input-text js-input" type="text" required>{{ form.schadule_Time }} </div>
+      </div>   
+     
+      <div class="form-field col-lg-12" style="max-width:500px; color:white">
+         <input class="submit-btn" type="submit" value="Submit">
+      </div>
+   </form>
+   <link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
+   <script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
+<!-- OR -->
+<!-- loading by form (if used AdminJalaliDateWidget) -->
+   
+
+    <style>
+   .header-dark {
+  background: url('/static/detailschadule/img/star-sky.jpg') #444;
+  background-size: cover;
+  padding-bottom: 80px;
+}
 
 
-            </div>
-          
-            </p>
-    </div>
+@media (min-width:768px) {
+  .header-dark {
+    padding-bottom: 120px;
+  }
+}
 
-</body>
+.header-dark .navbar {
+  background: transparent;
+  color: #fff;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+}
+
+@media (min-width:768px) {
+  .header-dark .navbar {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+  }
+}
+
+.header-dark .navbar .navbar-brand {
+  font-weight: bold;
+  color: inherit;
+}
+
+.header-dark .navbar .navbar-brand:hover {
+  color: #f0f0f0;
+}
+
+.header-dark .navbar .navbar-collapse span {
+  margin-top: 5px;
+}
+
+.header-dark .navbar .navbar-collapse span .login {
+  color: #d9d9d9;
+  margin-right: .5rem;
+  text-decoration: none;
+}
+
+.header-dark .navbar .navbar-collapse span .login:hover {
+  color: #fff;
+}
+
+.header-dark .navbar .navbar-toggler {
+  border-color: #747474;
+}
+
+.header-dark .navbar .navbar-toggler:hover, .header-dark .navbar-toggler:focus {
+  background: none;
+}
+
+.header-dark .navbar .navbar-toggler {
+  color: #eee;
+}
+
+.header-dark .navbar .navbar-collapse, .header-dark .navbar form {
+  border-color: #636363;
+}
+
+@media (min-width: 992px) {
+  .header-dark .navbar.navbar .navbar-nav .nav-link {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+}
+
+.header-dark .navbar.navbar-dark .navbar-nav .nav-link {
+  color: #d9d9d9;
+}
+
+.header-dark .navbar.navbar-dark .navbar-nav .nav-link:focus, .header-dark .navbar.navbar-dark .navbar-nav .nav-link:hover {
+  color: #fcfeff !important;
+  background-color: transparent;
+}
+
+.header-dark .navbar .navbar-nav > li > .dropdown-menu {
+  margin-top: -5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,.1);
+  background-color: #fff;
+  border-radius: 2px;
+}
+
+.header-dark .navbar .dropdown-menu .dropdown-item:focus, .header-dark .navbar .dropdown-menu .dropdown-item {
+  line-height: 2;
+  font-size: 14px;
+  color: #37434d;
+}
+
+.header-dark .navbar .dropdown-menu .dropdown-item:focus, .header-dark .navbar .dropdown-menu .drodown-item:hover {
+  background: #ebeff1;
+}
+
+.header-dark .navbar .action-button, .header-dark .navbar .action-button:active {
+  background: #208f8f;
+  border-radius: 20px;
+  font-size: inherit;
+  color: #fff;
+  box-shadow: none;
+  border: none;
+  text-shadow: none;
+  padding: .5rem .8rem;
+  transition: background-color 0.25s;
+}
+
+.header-dark .navbar .action-button:hover {
+  background: #269d9d;
+}
+
+.header-dark .navbar label {
+  color: #ccc;
+}
+
+.header-dark .navbar form .search-field {
+  display: inline-block;
+  width: 80%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  color: #ccc;
+  box-shadow: none;
+  color: inherit;
+  transition: border-bottom-color 0.3s;
+}
+
+.header-dark .navbar form .search-field:focus {
+  border-bottom: 1px solid #ccc;
+}
+
+.header-dark .hero {
+  margin-top: 60px;
+}
+
+@media (min-width:768px) {
+  .header-dark .hero {
+    margin-top: 20px;
+  }
+}
+
+.header-dark .hero h1 {
+  color: #fff;
+  font-family: 'Bitter', serif;
+  font-size: 40px;
+  margin-top: 20px;
+  margin-bottom: 80px;
+}
+
+@media (min-width:768px) {
+  .header-dark .hero h1 {
+    margin-bottom: 50px;
+    line-height: 1.5;
+  }
+}
+
+.header-dark .hero .ratio iframe {
+  background-color: #666;
+}
+
+
+
+
+
+.get-in-touch {
+    max-width: 800px;
+    margin: 50px auto;
+    position: relative;
+  
+  }
+  .get-in-touch .title {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 3.2em;
+    line-height: 48px;
+    padding-bottom: 48px;
+       color: #5543ca;
+      background: #5543ca;
+      background: -moz-linear-gradient(left,#f4524d  0%,#5543ca 100%) !important;
+      background: -webkit-linear-gradient(left,#f4524d  0%,#5543ca 100%) !important;
+      background: linear-gradient(to right,#f4524d  0%,#5543ca  100%) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+  }
+  
+  .contact-form .form-field {
+    position: relative;
+    margin: 32px 0;
+  }
+  .contact-form .input-text {
+    display: block;
+    width: 100%;
+    height: 36px;
+    border-width: 0 0 2px 0;
+    border-color: #5543ca;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 400;
+  }
+  .contact-form .input-text:focus {
+    outline: none;
+  }
+  .contact-form .input-text:focus + .label,
+  .contact-form .input-text.not-empty + .label {
+    -webkit-transform: translateY(-24px);
+            transform: translateY(-24px);
+  }
+  .contact-form .label {
+    position: absolute;
+    left: 20px;
+    bottom: 11px;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #5543ca;
+    cursor: text;
+    transition: -webkit-transform .2s ease-in-out;
+    transition: transform .2s ease-in-out;
+    transition: transform .2s ease-in-out, 
+    -webkit-transform .2s ease-in-out;
+  }
+  .contact-form .submit-btn {
+    display: inline-block;
+    background-color: #000;
+     background-image: linear-gradient(125deg,#a72879,#064497);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 16px;
+    padding: 8px 16px;
+    border: none;
+    width:200px;
+    cursor: pointer;
+  }
+  
+  
+   </style>
+</section>
 </html>
-
+{% else %}
+   {% url 'first:index' %}
+{% endif %}

@@ -37,23 +37,23 @@ def DetailFlight(request,flight_id):
 
 
 def add_Schadule(request):    
-    if request.method == 'POST':
-        form = AddSchaduleForm(request.POST)
-        if form.is_valid():
-            new_schadule = form.save(commit=False)
-            new_schadule.slug = slugify(f"{form.cleaned_data['Flight_Origin']}-{form.cleaned_data['Flight_Distination']}-{form.cleaned_data['Flight_Airline']}-{form.cleaned_data['Flight_Nomber']}-{form.cleaned_data['Flight_Date']}")            
-            
-            new_schadule.save()
-            messages.success(request, 'submited')
-            return redirect('first:index')
+   
+        if request.method == 'POST':
+            form = AddSchaduleForm(request.POST)
+            if form.is_valid():
+                new_schadule = form.save(commit=False)
+                new_schadule.slug = slugify(f"{form.cleaned_data['Flight_Origin']}-{form.cleaned_data['Flight_Distination']}-{form.cleaned_data['Flight_Airline']}-{form.cleaned_data['Flight_Nomber']}-{form.cleaned_data['Flight_Date']}")            
+                
+                new_schadule.save()
+                messages.success(request, 'submited')
+                return redirect('first:index')
+            else:
+                messages.warning(request, 'ridi')
+
         else:
-            messages.warning(request, 'ridi')
-
-    else:
-        form = AddSchaduleForm()
-    return render(request,'First/add_Schadule.html', {'form':form} )
-
-
+            form = AddSchaduleForm()
+        return render(request,'First/add_Schadule.html', {'form':form} )
+    
 @login_required
 def add_reply(request,flight_id,comment_id):
     flight= get_object_or_404(Flight,id=flight_id)
