@@ -32,7 +32,9 @@
                 </nav>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="navbar-nav"></ul>
-                    <form class="me-auto" target="_self"></form><span class="navbar-text"></span><a class="btn btn-light action-button" role="button" href="#">Log in</a>
+                    <form class="me-auto" target="_self"></form><span class="navbar-text"></span>
+                    <a class="btn btn-light action-button" role="button" href="#">Log in</a>
+                    <a class="btn btn-light action-button" role="button" href="#">Log out</a>
                 </div>
             </div>
         </nav>
@@ -66,7 +68,8 @@
                                           {% for flight in Flight %}
                                             <tr>
                                             <a href=""><th scope="row" >{{ flight.id}}</th>
-                                            <td><a href="{% url 'first:flight_detail' flight.id %}">{{ flight.Flight_Origin }}</a></td>                                              <td>{{ flight.Flight_Origin }}</td>
+                                            <td><a href="{% url 'first:flight_detail' flight.id %}">{{ flight.Flight_Origin }}</a></td>
+                                            <td>{{ flight.Flight_Origin }}</td>
                                             <td>{{ flight.Flight_Distination }}</td>
                                             <td>{{ flight.Flight_Airline }}</td>
                                             <td>{{ flight.Flight_Nomber }}</td>
